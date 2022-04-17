@@ -1,0 +1,33 @@
+<template>
+    <lightning-card title="To Do List" style="width: 100%;">
+        <lightning-button-icon onclick={refreshToDoList} slot="actions" icon-name="utility:sync" alternative-text="Refresh" title="Refresh"></lightning-button-icon>
+        <lightning-layout>
+            <lightning-layout-item padding="around-small" size="12">
+                <template if:true={processing}>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </template>
+                <ul class="slds-has-dividers_around-space">
+                    <template for:each={todoTask} for:item="task">
+                        <li class="slds-item" key={task.id}>
+                            {task.name}
+                            <lightning-button-icon onclick={deleteTask} name={task.id} style="padding-left: 180px;" icon-name="utility:delete" alternative-text="Delete" title="Delete"></lightning-button-icon>
+                        </li>
+                    </template>
+                </ul>
+            </lightning-layout-item>
+        </lightning-layout>
+        
+        <p slot="footer">
+            <lightning-layout pull-to-boundary="small">
+                <lightning-layout-item padding="horizontal-small" flexibility="grow">
+                    <lightning-input onchange={updateNewTask} autocomplete="off" value={newTask} type="text" placeholder="Enter new task" variant="label-hidden" label="New Task" required></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item padding="horizontal-small">
+                    <lightning-button onclick={addTask} label="Add" variant="brand"></lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+            
+            
+        </p>
+    </lightning-card>
+</template>
